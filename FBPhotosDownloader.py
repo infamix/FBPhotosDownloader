@@ -83,7 +83,6 @@ def download_photos(album_name, album_id, file_name):
 
 
     log.close()
-    os.remove(log_file_path)
 
     return
 
