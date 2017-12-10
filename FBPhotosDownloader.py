@@ -3,31 +3,14 @@
 import urllib
 import json
 import os
+import sys
+import getopt
 
 ACESS_TOKEN = "902628199904076|PEW80o6zhsRTEQlwLSZ0ZTphUw4"
 ALBUM_PARAM_URL = "https://graph.facebook.com/{PAGE_ID}/albums?fields=count,name,description&access_token={TOKEN}"
 PHOTOS_PARAM_URL = "https://graph.facebook.com/v2.11/{ALBUM_ID}/photos/uploaded?limit=40&access_token={TOKEN}"
 PHOTO_URL = "https://graph.facebook.com/v2.11/{PHOTOS_ID}?fields=images&access_token={TOKEN}"
 FILE_NAME = "log.txt"
-
-def album_list_getter(in_page_id):
-    """Return list of albums of page"""
-
-    album_node_url = ALBUM_PARAM_URL.format(PAGE_ID=in_page_id, TOKEN=ACESS_TOKEN)
-    return_album_node = urllib.urlopen(album_node_url)
-    album_node = json.loads(return_album_node.read())
-    return album_node['data']
-
-def print_album_list(album_list):
-    """Print album list and return the album name choice.
-
-    If return is all then all photos on page will be download."""
-
-    for i in range(len(album_list)):
-        print "{}. {} ({} photo(s))".format(i + 1, album_list[i]['name'], album_list[i]['count'])
-
-    choice = raw_input("Please enter your choice (0 for all): ")
-    return int(choice) - 1
 
 def get_photo_list(album_url):
     """Return list of photo in album"""
@@ -86,25 +69,30 @@ def download_photos(album_name, album_id, file_name):
 
     return
 
-def main():
+def main(argv):
     """Program starting point"""
-
-    while True:
-        choice = raw_input("Do you have a (p)age ID or (a)lbum ID: ")
-        if choice in ('p', 'P'):
-            page_id = raw_input("Please enter a page id: ")
-            album_list = album_list_getter(page_id)
-            index = print_album_list(album_list)
-            if index == -1:
-                download_photos(page_id, page_id, page_id)
-            else:
-                download_photos(album_list[index]['name'], album_list[index]['id'], album_list[index]['name'])
-            break
-        elif choice in ('a', 'A'):
-            album_id = raw_input("Please enter an album id: ")
-            download_photos('name', album_id, 'Gai xinh')
-            break
-
-    print 'Done'
-
-main()
+    opts, args = getopt.getopt(argv,"hp:a:",["help","page=","album="])
+    if (len(sys.argv) != 3):
+       print 'Usage:'
+       print 'test.py -p <pageid>'
+       print 'test.py -a <albumid>'
+       sys.exit()
+    for opt, arg in opts:
+       if opt in ("-h", "--help"):
+           print 'Usage:'
+           print 'test.py -p <pageid>'
+           print 'test.py -a <albumid>'
+           sys.exit()
+       elif opt in ("-p", "--page"):
+           page_id = arg
+           print "Page ID = ", page_id
+           download_photos(page_id, page_id, page_id)
+           break
+       elif opt in ("-a", "--album"):
+           album_id = arg
+           print "Album ID = ", album_id
+           download_photos('name', album_id, 'Gai xinh')
+           break
+           
+if __name__ == "__main__":
+   main(sys.argv[1:])
