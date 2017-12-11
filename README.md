@@ -1,30 +1,21 @@
 # FBPhotosDownloader
-
-This is a tiny app run on CLI to download photos from facebook.
+This is a tiny Python2 script for downloading Facebook photos.
 
 # Main features
-
-* Download albums from page by page id.
 * Download photos from page by page id.
 * Download albums by album id.
-* Able to stop and resume download.
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* Stop and resume downloads.
 
 ### Prerequisites
+* Python 2.7
 
-What things you need to install the software and how to install them
+## Usage
 
-```
-Just a compiled version of these code for standalone running. Or just run it with python compiler.
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+Download FBPhotosDownloader.py then in the same directory do <br />
+```python2 FBPhotosDownloader.py -p <pageid>``` <br />
+to download photos from a page, or do <br />
+```python2 FBPhotosDownloader.py -a <albumid>``` <br />
+to download photos from an album.
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
