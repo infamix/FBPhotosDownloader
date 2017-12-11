@@ -74,14 +74,14 @@ def main(argv):
     opts, args = getopt.getopt(argv,"hp:a:",["help","page=","album="])
     if (len(sys.argv) != 3):
        print 'Usage:'
-       print 'test.py -p <pageid>'
-       print 'test.py -a <albumid>'
+       print 'python2 FBPhotosDownloader.py -p <pageid>'
+       print 'python2 FBPhotosDownloader.py -a <albumid>'
        sys.exit()
     for opt, arg in opts:
        if opt in ("-h", "--help"):
            print 'Usage:'
-           print 'test.py -p <pageid>'
-           print 'test.py -a <albumid>'
+           print 'python2 FBPhotosDownloader.py -p <pageid>'
+           print 'python2 FBPhotosDownloader.py -a <albumid>'
            sys.exit()
        elif opt in ("-p", "--page"):
            page_id = arg
